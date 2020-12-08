@@ -15,7 +15,6 @@ app.use(
 );
 
 const mykey = process.env.KEY;
-console.log(mykey);
 
 app.post("/", function (req, res) {
   const query = req.body.cityName;
