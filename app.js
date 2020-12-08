@@ -1,7 +1,8 @@
+require("dotenv").config();
 const express = require("express");
 const https = require("https");
 const bodyParser = require("body-parser");
-const mykey = config.MY_KEY;
+const { json } = require("body-parser");
 
 const app = express();
 
@@ -12,6 +13,9 @@ app.use(
     extended: true,
   })
 );
+
+const mykey = process.env.KEY;
+console.log(mykey);
 
 app.post("/", function (req, res) {
   const query = req.body.cityName;
@@ -30,6 +34,7 @@ app.post("/", function (req, res) {
     https.get(url, function (response) {
       response.on("data", function (data) {
         const weatherData = JSON.parse(data);
+        console.log(weatherData);
         if (weatherData.cod == 404) {
           res.redirect("/404.html");
         } else {
